@@ -259,7 +259,12 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 ## Citation
 
+If you use this framework in your research, please cite:
+
+```bibtex
+
 Ahmed M. Saeed,Sameh A. Salem,Shahira M. Habashy,Hadeer A. Hassan, "TAB-DROID: A FRAMEWORK FOR ANDROID MALWARE DETECTION USING THE TABPFN CLASSIFIER", Jordanian Journal of Computers and Information Technology (JJCIT) ,Volume 11,  Number 04, pp. 448 - 465,  December 2025, doi: 10.5455/jjcit.71-1751720957.
+```
 
 ## 👤 Author
 
