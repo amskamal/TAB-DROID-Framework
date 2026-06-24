@@ -138,17 +138,6 @@ y_pred = clf.predict(X_test)
 
 ---
 
-## 📁 Project Structure
-
-```
-TAB-DROID/
-├── Data-preparation-&-cleaning/    # Data preprocessing, feature extraction & cleaning
-├── Malgenome/                      # Notebooks for the Malgenome Android malware dataset
-└── TUANDROMD/                      # Notebooks for the TUANDROMD Android malware dataset
-```
-
----
-
 ## 📂 Folder Details
 
 ### 🧹 `Data-preparation-&-cleaning/`
