@@ -11,7 +11,7 @@ A machine learning-based framework for **Android malware detection and analysis*
 | Language | Python |
 | Environment | Jupyter Notebook |
 | Datasets | Malgenome, TUANDROMD |
-| Core Libraries | scikit-learn, skfeature-chappers, nanopq |
+| Core Libraries | scikit-learn, skfeature-chappers, nanopq, TabPFN |
 
 ---
 
@@ -22,6 +22,7 @@ A machine learning-based framework for **Android malware detection and analysis*
 ```bash
 pip install skfeature-chappers
 pip install nanopq
+pip install tabpfn
 ```
 
 The following libraries are used across the notebooks in this project:
@@ -30,9 +31,7 @@ The following libraries are used across the notebooks in this project:
 
 ### 🔵 `scikit-learn` — Machine Learning Framework
 
-```python
-from sklearn.svm import SVC
-```
+```python```
 
 **scikit-learn** is the core machine learning library used throughout the project for training, evaluating, and comparing classification models.
 
@@ -115,6 +114,30 @@ dists = pq.dtable(query).adist(X_code)  # Compute approximate distances
 
 ---
 
+### 🟣 `TabPFN` — Tabular Prior-Data Fitted Network
+
+```python
+from tabpfn import TabPFNClassifier
+```
+
+**TabPFN** is a transformer-based tabular classifier, pre-trained on millions of synthetically generated tabular datasets, that performs in-context learning — it takes the training set directly as input at inference time and produces predictions in a single forward pass, with no per-dataset training loop or hyperparameter tuning required.
+
+- **What it does:** Acts as a tabular classifier that approximates Bayesian inference over a wide space of structured-data problems, treating the training data as context rather than fitting model weights to it
+- **Why it's used in TAB-DROID:** The Malgenome and TUANDROMD datasets are inherently tabular (permissions, API calls, and intents as columns), so TabPFN serves as a fast, strong-baseline tabular classifier to compare against the project's proposed model — particularly effective on smaller or feature-reduced datasets after `CMIM`/`JMI` selection
+- **Key components used:**
+
+```python
+from tabpfn import TabPFNClassifier
+
+clf = TabPFNClassifier()
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+```
+
+- **Reference:** Hollmann, N. et al. *"TabPFN: A Transformer That Solves Small Tabular Classification Problems in a Second."* ICLR 2023
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -154,7 +177,7 @@ Notebooks that train and evaluate ML models using the **Android Malware Genome P
 
 **What the notebooks do:**
 - Apply feature selection via `CMIM` / `JMI` to reduce dimensionality
-- Train the proposed model on the selected features
+- Train the proposed model on the selected features, with `TabPFN` used as a tabular classification baseline
 - Use `nanopq` for efficient vector compression and similarity search
 - Evaluate with accuracy, F1-score, confusion matrix, and ROC/AUC
 
@@ -171,7 +194,7 @@ Notebooks that train and evaluate ML models using the **Tezpur University Androi
 **What the notebooks do:**
 - Handle the higher dimensionality (241 features) using `CMIM` / `JMI` for feature reduction
 - Apply `nanopq` to compress the 241-dimensional vectors for efficient search
-- Train and evaluate the proposed model on the reduced feature set
+- Train and evaluate the proposed model on the reduced feature set, with `TabPFN` used as a tabular classification baseline
 - Compare results with Malgenome experiments
 
 ---
@@ -182,6 +205,7 @@ Notebooks that train and evaluate ML models using the **Tezpur University Androi
 pip install scikit-learn pandas numpy matplotlib seaborn jupyter
 pip install skfeature-chappers
 pip install nanopq
+pip install tabpfn
 
 ```
 
@@ -199,7 +223,7 @@ cd TAB-DROID
 ### 2. Install Dependencies
 
 ```bash
-pip install scikit-learn pandas numpy matplotlib seaborn skfeature-chappers nanopq jupyter
+pip install scikit-learn pandas numpy matplotlib seaborn skfeature-chappers nanopq tabpfn jupyter
 ```
 
 ### 3. Launch Jupyter Notebook
